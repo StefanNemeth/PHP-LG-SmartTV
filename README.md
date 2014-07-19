@@ -1,7 +1,12 @@
 PHP-LG-SmartTV
 ==============
 
-A PHP API for the LG SmartTV.
+A PHP API for the LG SmartTV (2012+) which makes it easy for you to remote control your TV with code.
+You're able to execute simple/special commands and queries (change channel, get current channel,
+get channel list, set volume up, set volume down, save screenshot - save gif animation, ...)
+
+You can find command parameters and query structures on the [Official Documentation of the LG SmartTV](http://developer.lgappstv.com/TV_HELP/index.jsp?topic=%2Flge.tvsdk.references.book%2Fhtml%2FUDAP%2FUDAP%2FHandleTouchMove.htm)
+(There is also a command/query list below the examples)
 
 ## How to connect to your TV
 
