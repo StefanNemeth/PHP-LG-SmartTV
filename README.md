@@ -128,6 +128,12 @@ echo $tv->queryData(TV_INFO_CURRENT_CHANNEL)->chname;
 file_put_contents('screen.jpeg', $tv->queryData(TV_INFO_SCREEN));
 ```
 
+# Practical Example
+
+![example](http://puu.sh/ai0JW.jpg)
+
+You can find the code of the Practical Example [here](https://github.com/SteveWinfield/PHP-LG-SmartTV/blob/master/webInterface.php).
+
 # List of commands and queries (+ Documentation links)
 
 **Simple commands**
