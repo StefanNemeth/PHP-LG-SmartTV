@@ -68,3 +68,21 @@ echo $tv->queryData(TV_INFO_CURRENT_CHANNEL)->chname;
  * Save a screenshot
 **/
 file_put_contents('screen.jpeg', $tv->queryData(TV_INFO_SCREEN));
+
+/**
+ * Change channel (Channel VIVA)
+**/
+// Get channel list
+$channels    = $tv->queryData(TV_INFO_CHANNEL_LIST);
+
+// Channel name
+$channelName = 'VIVA';
+
+// Search for channel $channelName
+foreach ($channels as $channel) {
+	if ($channel->chname == $channelName) {
+		// Change channel
+		$tv->processCommand(TV_CMD_CHANGE_CHANNEL, $channel);
+		break;
+	}
+}

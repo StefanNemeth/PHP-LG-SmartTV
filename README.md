@@ -69,6 +69,31 @@ $tv->processCommand(TV_CMD_MOUSE_MOVE, [ 'x' => 20, 'y' => 20 ]);
 $tv->processCommand(TV_CMD_MOUSE_CLICK);
 ```
 
+## How to change your channel
+
+```php
+<?php
+
+/**
+ * Change channel (Channel VIVA)
+**/
+
+// Get channel list
+$channels    = $tv->queryData(TV_INFO_CHANNEL_LIST);
+
+// Channel name
+$channelName = 'VIVA';
+
+// Search for channel $channelName
+foreach ($channels as $channel) {
+	if ($channel->chname == $channelName) {
+		// Change channel
+		$tv->processCommand(TV_CMD_CHANGE_CHANNEL, $channel);
+		break;
+	}
+}
+```
+
 # How to query data
 
 ```php

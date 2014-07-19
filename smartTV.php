@@ -137,6 +137,8 @@ class SmartTV {
 		}
 		if (is_string($parameters) || is_numeric($parameters)) {
 			$parameters = array('value' => $parameters);
+		} elseif (is_object($parameters)) {
+			$parameters = (array)$parameters;
 		}
 		$parameters['name'] = $commandName;
 		return ($this->sendXMLRequest('/roap/api/command', 
