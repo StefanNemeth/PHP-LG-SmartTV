@@ -190,12 +190,3 @@ class SmartTV {
 	private $pairingKey;
 	private $session;
 }
-
-$tv = new SmartTV('192.168.2.103');
-$tv->setPairingKey(678887); // $tv->displayPairingKey();
-
-try {
-	$tv->authenticate();
-} catch (Exception $e) {
-	die('Authentication failed, I am sorry.');
-}
