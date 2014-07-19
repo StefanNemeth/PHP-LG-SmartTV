@@ -63,7 +63,7 @@ if (isset($_GET['cmd'])) {
 			}
 			break;
 			
-		case 'channelInfo':
+		case 'info':
 			$currentChannel = $tv->queryData(TV_INFO_CURRENT_CHANNEL);
 			$text = 'You\'re watching <b>'.$currentChannel->progName.'</b> on <b>'.$currentChannel->chname.'</b>';
 			
@@ -84,42 +84,21 @@ if (isset($_GET['cmd'])) {
 			exit ($text);
 			break;
 			
-		case 'arrow':
+		case 'keyPress':
 			if (!isset($_GET['value'])) {
 				exit;
 			}
-			$code = 0;
-			switch ($_GET['value']) {
-				case 'up':
-					$code = TV_CMD_UP;
-					break;
-				case 'down':
-					$code = TV_CMD_DOWN;
-					break;
-				case 'left':
-					$code = TV_CMD_LEFT;
-					break;
-				case 'right':
-					$code = TV_CMD_RIGHT;
-					break;
-
-				case 'enter':
-					$code = TV_CMD_OK;
-					break;
-				
-				case 'esc':
-					$code = TV_CMD_EXIT;
-					break;
-				
-				case 'backspace':
-					$code = TV_CMD_BACK;
-					break;
-				
-				case 'h':
-					$code = TV_CMD_HOME_MENU;
-					break;
-			}
-			$tv->processCommand($code);
+			$codes = array(
+				'up' => TV_CMD_UP,
+				'down' => TV_CMD_DOWN,
+				'left' => TV_CMD_LEFT,
+				'right' => TV_CMD_RIGHT,
+				'enter' => TV_CMD_OK,
+				'esc' => TV_CMD_EXIT,
+				'backspace' => TV_CMD_BACK,
+				'h' => TV_CMD_HOME_MENU
+			);
+			$tv->processCommand($codes[$_GET['value']]);
 			break;
 	}
 	exit;
@@ -152,42 +131,17 @@ if (isset($_GET['cmd'])) {
 		$(document).ready(function() {
 			$(document).keydown(function (e) {
 				var keyCode = e.keyCode || e.which,
-				  arrow = {backspace: 8, esc: 27, enter: 13, left: 37, up: 38, right: 39, down: 40, h: 72 };
-				var value = 'up';
-				switch (keyCode) {
-					case arrow.left:
-					  value = 'left';
-					  break;
-					case arrow.up:
-					  value = 'up';
-					  break;
-					case arrow.right:
-					  value = 'right';
-					  break;
-					case arrow.down:
-					  value = 'down';
-					  break;
-					case arrow.enter:
-					  value = 'enter';
-					  break;
-					case arrow.esc:
-					  value = 'esc';
-					  break;
-					case arrow.backspace:
-					  value = 'backspace';
-					  break;
-					case arrow.h:
-					  value = 'h';
-					  break;
+				  CHAR = {8 : 'backspace', 27 : 'esc', 13 : 'enter', 37 : 'left', 38 : 'up', 39 : 'right', 40 : 'down', 72 : 'h' };
+				if (CHAR[keyCode] !== "undefined") {
+					$.get("index.php?cmd=keyPress&value=" + CHAR[keyCode]);
+					e.preventDefault();
 				}
-				$.get("index.php?cmd=arrow&value=" + value);
-				e.preventDefault();
 			});
 			function refreshImage() {
 				$("#liveImage").attr("src", "index.php?cmd=screen&t="+(new Date()).getTime());
 			}
 			function refreshData() {
-				$.get("index.php?cmd=channelInfo", function (data) {
+				$.get("index.php?cmd=info", function (data) {
 					var lData = data.split("___---___");
 					$("#channelInfo").html(lData[0]);
 					if (lData.length > 1) {
