@@ -95,9 +95,6 @@ define ('TV_INFO_VOLUME', 'volume_info');
 define ('TV_INFO_SCREEN', 'screen_image');
 define ('TV_INFO_3D', 'is_3d');
 define ('TV_LAUNCH_APP', 'AppExecute');
-/*
-print_r( $tv->processCommand(TV_LAUNCH_APP,['auid' => '00000000000112ae', 'appname' => 'Netflix']) );
-*/
 
 class SmartTV {
 	public function __construct($ipAddress, $port = 8080) {
