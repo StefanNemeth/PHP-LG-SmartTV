@@ -119,13 +119,20 @@ class SmartTV {
 		if ($this->pairingKey === null) {
 			throw new Exception('No pairing key given.');
 		}
-		return ($this->session = $this->sendXMLRequest('/roap/api/auth', self::encodeData(
+
+		$this->session = $this->sendXMLRequest('/roap/api/auth', self::encodeData(
 			array(
 				'type' => 'AuthReq',
 				'value' => $this->pairingKey
 			),
 			'auth'
-		))['session']);
+		));
+
+		if (!$this->session) {
+			throw new Exception('Authentication request failed.');
+		}
+
+		return $this->sesssion['session'];
 	}
 
 	public function processCommand($commandName, $parameters = []) {
