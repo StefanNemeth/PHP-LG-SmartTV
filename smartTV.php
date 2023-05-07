@@ -132,7 +132,7 @@ class SmartTV {
 			throw new Exception('Authentication request failed.');
 		}
 
-		return $this->sesssion['session'];
+		return $this->session['session'];
 	}
 
 	public function processCommand($commandName, $parameters = []) {
